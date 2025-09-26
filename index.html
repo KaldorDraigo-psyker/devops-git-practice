@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Manager</h1>
+            <p>Organize your tasks efficiently</p>
+        </header>
+        
+        <main>
+            <div class="task-form">
+                <h2>Add New Task</h2>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle">Title:</label>
+                        <input type="text" id="taskTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDescription">Description:</label>
+                        <textarea id="taskDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskPriority">Priority:</label>
+                        <select id="taskPriority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <button type="submit">Add Task</button>
+                </form>
+            </div>
+            
+            <div class="task-filters">
+                <h2>Filter Tasks</h2>
+                <div class="filter-buttons">
+                    <button id="filterAll" class="active">All</button>
+                    <button id="filterPending">Pending</button>
+                    <button id="filterCompleted">Completed</button>
+                </div>
+            </div>
+            
+            <div class="task-list">
+                <h2>Tasks</h2>
+                <div id="tasksContainer">
+                    <!-- Tasks will be dynamically added here -->
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="taskManager.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
