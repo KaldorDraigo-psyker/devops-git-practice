@@ -238,6 +238,41 @@ button:active {
     padding: 40px;
 }
 
+.task-meta {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e9ecef;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.task-meta small {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.completed-badge {
+    color: #28a745;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.notification {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.task-actions button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
 @media (max-width: 768px) {
     main {
         grid-template-columns: 1fr;
@@ -253,5 +288,9 @@ button:active {
     
     .filter-buttons {
         justify-content: center;
+    }
+    
+    .task-actions {
+        flex-direction: column;
     }
 }
