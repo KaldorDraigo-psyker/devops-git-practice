@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - UI Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .demo-section {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .demo-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .demo-buttons button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .demo-buttons button:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Manager - UI Demo</h1>
+            <p>Interactive demonstration of UI features</p>
+        </header>
+        
+        <div class="demo-section">
+            <h2>Demo Controls</h2>
+            <p>Use these buttons to test the UI functionality:</p>
+            <div class="demo-buttons">
+                <button onclick="addSampleTasks()">Add Sample Tasks</button>
+                <button onclick="testNotifications()">Test Notifications</button>
+                <button onclick="exportSampleData()">Export Sample Data</button>
+                <button onclick="clearAllTasks()">Clear All Tasks</button>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>UI Features Demo</h2>
+            <ul>
+                <li><strong>Task Creation:</strong> Fill out the form below to add new tasks</li>
+                <li><strong>Task Filtering:</strong> Use the filter buttons to view different task states</li>
+                <li><strong>Task Actions:</strong> Complete or delete tasks using the action buttons</li>
+                <li><strong>Export/Import:</strong> Save and load task data as JSON files</li>
+                <li><strong>Responsive Design:</strong> Resize the window to see mobile-friendly layout</li>
+            </ul>
+        </div>
+        
+        <main>
+            <div class="task-form">
+                <h2>Add New Task</h2>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle">Title:</label>
+                        <input type="text" id="taskTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDescription">Description:</label>
+                        <textarea id="taskDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskPriority">Priority:</label>
+                        <select id="taskPriority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <button type="submit">Add Task</button>
+                </form>
+            </div>
+            
+            <div class="task-filters">
+                <h2>Filter Tasks</h2>
+                <div class="filter-buttons">
+                    <button id="filterAll" class="active">All</button>
+                    <button id="filterPending">Pending</button>
+                    <button id="filterCompleted">Completed</button>
+                </div>
+                <div class="task-actions">
+                    <button id="exportBtn" onclick="window.taskManagerApp.exportTasks()">Export Tasks</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="window.taskManagerApp.importTasks(this.files[0])">
+                    <button onclick="document.getElementById('importFile').click()">Import Tasks</button>
+                </div>
+            </div>
+            
+            <div class="task-list">
+                <h2>Tasks</h2>
+                <div id="tasksContainer">
+                    <!-- Tasks will be dynamically added here -->
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="taskManager.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Demo functions
+        function addSampleTasks() {
+            const sampleTasks = [
+                { title: 'Learn JavaScript', description: 'Complete JavaScript fundamentals course', priority: 'high' },
+                { title: 'Buy groceries', description: 'Milk, bread, eggs, and vegetables', priority: 'medium' },
+                { title: 'Read book', description: 'Finish reading "Clean Code"', priority: 'low' },
+                { title: 'Exercise', description: 'Go for a 30-minute run', priority: 'medium' },
+                { title: 'Write documentation', description: 'Update project README', priority: 'high' }
+            ];
+            
+            sampleTasks.forEach(task => {
+                window.taskManagerApp.taskManager.addTask(task.title, task.description, task.priority);
+            });
+            
+            window.taskManagerApp.renderTasks();
+            window.taskManagerApp.updateStats();
+            window.taskManagerApp.showNotification('Sample tasks added!', 'success');
+        }
+        
+        function testNotifications() {
+            const notifications = [
+                { message: 'Success notification', type: 'success' },
+                { message: 'Error notification', type: 'error' },
+                { message: 'Info notification', type: 'info' }
+            ];
+            
+            notifications.forEach((notif, index) => {
+                setTimeout(() => {
+                    window.taskManagerApp.showNotification(notif.message, notif.type);
+                }, index * 1000);
+            });
+        }
+        
+        function exportSampleData() {
+            if (window.taskManagerApp.taskManager.getTasks().length === 0) {
+                addSampleTasks();
+            }
+            window.taskManagerApp.exportTasks();
+        }
+        
+        function clearAllTasks() {
+            if (confirm('Are you sure you want to clear all tasks?')) {
+                window.taskManagerApp.taskManager.clearAllTasks();
+                window.taskManagerApp.renderTasks();
+                window.taskManagerApp.updateStats();
+                window.taskManagerApp.showNotification('All tasks cleared!', 'info');
+            }
+        }
+        
+        // Initialize demo
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('UI Demo loaded. Try the demo buttons above!');
+        });
+    </script>
+</body>
+</html>
