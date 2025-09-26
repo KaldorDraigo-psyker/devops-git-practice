@@ -44,6 +44,11 @@
                     <button id="filterPending">Pending</button>
                     <button id="filterCompleted">Completed</button>
                 </div>
+                <div class="task-actions">
+                    <button id="exportBtn" onclick="window.taskManagerApp.exportTasks()">Export Tasks</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="window.taskManagerApp.importTasks(this.files[0])">
+                    <button onclick="document.getElementById('importFile').click()">Import Tasks</button>
+                </div>
             </div>
             
             <div class="task-list">
